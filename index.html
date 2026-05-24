@@ -1306,7 +1306,7 @@ const CONFIG = {
 
   // ── Invio al backend ─────────────────────────────────────────────────
   async function inviaAlBackend(dati) {
-    const risposta = await fetch("https://script.google.com/macros/s/AKfycbz2pHMoO-pTJJ4Y2KAsR3I_Abb6WFxn_pGhkDGi4biWAk8gCftpv2cqRSiLVhad1y3t/exec", {
+    const risposta = await fetch("https://script.google.com/macros/s/AKfycbynPPZrc4RdE_OLtaECPdnpEPzpJ8zQspgX9EWp1WBkwVGMtxpYxtoW6pS1Nl3p07rh/exec", {
       method: "POST",
       body: JSON.stringify(dati)
     });
