@@ -913,8 +913,7 @@ const CONFIG = {
     });
 
     const pTit=document.getElementById('fam_tit_periodo');
-    if(pTit&&pTit.value==='Nessuno'){pTit.classList.add('errore');ok=false;msgs.push('Selezionare un periodo per il Titolare.');}
-    else if(pTit) pTit.classList.remove('errore');
+    if(pTit) pTit.classList.remove('errore');
 
     const accTit=document.querySelector('input[name="acc_titolare"]:checked');
     if(accTit&&accTit.value==='si'){
@@ -1307,7 +1306,7 @@ const CONFIG = {
 
   // ── Invio al backend ─────────────────────────────────────────────────
   async function inviaAlBackend(dati) {
-    const risposta = await fetch("https://script.google.com/macros/s/AKfycbynPPZrc4RdE_OLtaECPdnpEPzpJ8zQspgX9EWp1WBkwVGMtxpYxtoW6pS1Nl3p07rh/exec", {
+    const risposta = await fetch("https://script.google.com/macros/s/AKfycbz2pHMoO-pTJJ4Y2KAsR3I_Abb6WFxn_pGhkDGi4biWAk8gCftpv2cqRSiLVhad1y3t/exec", {
       method: "POST",
       body: JSON.stringify(dati)
     });
