@@ -841,14 +841,16 @@ const CONFIG = {
   // ── Modalità pulsanti ────────────────────────────────────────────────
   function getModalita(){
     const stato=document.querySelector('input[name="stato"]:checked'); if(!stato)return null;
-    let nome='';
-    if(stato.value==='in_servizio')        nome=document.getElementById('forza_armata_servizio').value;
-    else if(stato.value==='in_quiescenza') nome=document.getElementById('forza_armata_quiescenza').value;
-    else if(stato.value==='vedovo')        nome=document.getElementById('forza_armata_defunto').value;
-    else return 'stampa';
-    if(!nome)return null;
-    const fa=CONFIG.forzeArmate.find(f=>f.nome===nome);
-    return fa?fa.modalita:null;
+    // Quiescenza, vedovo/a e altro → sempre invia direttamente a torreamaream
+    if(stato.value==='in_quiescenza' || stato.value==='vedovo' || stato.value==='altro') return 'invia';
+    // In servizio → la modalità dipende dalla FF.AA./Corpo selezionato
+    if(stato.value==='in_servizio'){
+      const nome=document.getElementById('forza_armata_servizio').value;
+      if(!nome)return null;
+      const fa=CONFIG.forzeArmate.find(f=>f.nome===nome);
+      return fa?fa.modalita:null;
+    }
+    return null;
   }
 
   function aggiornaPulsanti(){
