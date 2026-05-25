@@ -1086,28 +1086,31 @@ const CONFIG = {
     }
 
     // Raccolta dati dal form
-    const grado     = document.getElementById('grado')?.value        || '';
-    const cognome   = document.getElementById('cognome')?.value      || '';
-    const nome      = document.getElementById('nome')?.value         || '';
-    const email     = document.getElementById('email')?.value        || '';
-    const telefono  = document.getElementById('telefono')?.value     || '';
-    const residente = document.getElementById('residente_a')?.value  || '';
-    const provincia = document.getElementById('provincia')?.value    || '';
-    const cap       = document.getElementById('cap')?.value          || '';
-    const indirizzo = document.getElementById('indirizzo')?.value    || '';
+    // Helper uppercase per PDF (email esclusa per non causare problemi di recapito)
+    const U = v => (v || '').toString().toUpperCase();
+
+    const grado     = U(document.getElementById('grado')?.value);
+    const cognome   = U(document.getElementById('cognome')?.value);
+    const nome      = U(document.getElementById('nome')?.value);
+    const email     = document.getElementById('email')?.value        || ''; // email: case originale
+    const telefono  = U(document.getElementById('telefono')?.value);
+    const residente = U(document.getElementById('residente_a')?.value);
+    const provincia = U(document.getElementById('provincia')?.value);
+    const cap       = U(document.getElementById('cap')?.value);
+    const indirizzo = U(document.getElementById('indirizzo')?.value);
 
     const statoEl   = document.querySelector('input[name="stato"]:checked');
     const statoVal  = statoEl?.value || '';
     const statoMap  = {in_servizio:'In servizio',in_quiescenza:'In quiescenza',vedovo:'Vedovo/a',altro:'Altro'};
     const statoTxt  = statoMap[statoVal] || '—';
-    const ente      = document.getElementById('forza_armata_servizio')?.value ||
+    const ente      = U(document.getElementById('forza_armata_servizio')?.value ||
                       document.getElementById('forza_armata_quiescenza')?.value ||
-                      document.getElementById('forza_armata_defunto')?.value || '';
-    const enteLocalita = document.getElementById('ente_localita')?.value ||
-                         document.getElementById('specificare_altro')?.value || '';
+                      document.getElementById('forza_armata_defunto')?.value || '');
+    const enteLocalita = U(document.getElementById('ente_localita')?.value ||
+                         document.getElementById('specificare_altro')?.value || '');
 
-    const auto1 = [document.getElementById('marca_auto1')?.value, document.getElementById('modello_auto1')?.value, document.getElementById('targa_auto1')?.value].filter(Boolean).join(' ');
-    const auto2 = [document.getElementById('marca_auto2')?.value, document.getElementById('modello_auto2')?.value, document.getElementById('targa_auto2')?.value].filter(Boolean).join(' ');
+    const auto1 = [document.getElementById('marca_auto1')?.value, document.getElementById('modello_auto1')?.value, document.getElementById('targa_auto1')?.value].filter(Boolean).join(' ').toUpperCase();
+    const auto2 = [document.getElementById('marca_auto2')?.value, document.getElementById('modello_auto2')?.value, document.getElementById('targa_auto2')?.value].filter(Boolean).join(' ').toUpperCase();
 
     // ── SEZIONE 1: Dati Titolare ──────────────────────────────────
     titoloSezione('1. Dati del Titolare');
@@ -1124,11 +1127,11 @@ const CONFIG = {
     // Dati defunto se vedovo
     if(statoVal==='vedovo'){
       treCampi('Grado del defunto',
-        document.getElementById('grado_defunto')?.value||'',
+        U(document.getElementById('grado_defunto')?.value),
         'Cognome del defunto',
-        document.getElementById('cognome_defunto')?.value||'',
+        U(document.getElementById('cognome_defunto')?.value),
         'Nome del defunto',
-        document.getElementById('nome_defunto')?.value||'');
+        U(document.getElementById('nome_defunto')?.value));
     }
 
     // ── SEZIONE 3: Autoveicoli ────────────────────────────────────
@@ -1147,14 +1150,14 @@ const CONFIG = {
       const isT = idx === 0;
       const n   = card.id.replace('fam_','');
 
-      const parentela = isT ? 'Titolare' : (document.getElementById(`fam_${n}_parentela`)?.value || '');
-      const nomeF     = isT ? `${cognome} ${nome}`.trim() : (document.getElementById(`fam_${n}_nome`)?.value || '');
-      const cf        = isT ? (document.getElementById('fam_tit_cf')?.value||'') : (document.getElementById(`fam_${n}_cf`)?.value||'');
-      const natoA     = isT ? (document.getElementById('fam_tit_nato_a')?.value||'') : (document.getElementById(`fam_${n}_nato_a`)?.value||'');
-      const prov      = isT ? (document.getElementById('fam_tit_prov')?.value||'') : (document.getElementById(`fam_${n}_prov`)?.value||'');
+      const parentela = isT ? 'Titolare' : U(document.getElementById(`fam_${n}_parentela`)?.value);
+      const nomeF     = isT ? `${cognome} ${nome}`.trim() : U(document.getElementById(`fam_${n}_nome`)?.value);
+      const cf        = isT ? U(document.getElementById('fam_tit_cf')?.value) : U(document.getElementById(`fam_${n}_cf`)?.value);
+      const natoA     = isT ? U(document.getElementById('fam_tit_nato_a')?.value) : U(document.getElementById(`fam_${n}_nato_a`)?.value);
+      const prov      = isT ? U(document.getElementById('fam_tit_prov')?.value) : U(document.getElementById(`fam_${n}_prov`)?.value);
       const natoIl    = isT ? (document.getElementById('fam_tit_nato_il')?.value||'') : (document.getElementById(`fam_${n}_nato_il`)?.value||'');
-      const periodo   = isT ? (document.getElementById('fam_tit_periodo')?.value||'') : (document.getElementById(`fam_${n}_periodo`)?.value||'');
-      const note      = isT ? (document.getElementById('fam_tit_note')?.value||'') : (document.getElementById(`fam_${n}_note`)?.value||'');
+      const periodo   = isT ? U(document.getElementById('fam_tit_periodo')?.value) : U(document.getElementById(`fam_${n}_periodo`)?.value);
+      const note      = isT ? U(document.getElementById('fam_tit_note')?.value) : U(document.getElementById(`fam_${n}_note`)?.value);
 
       // Intestazione familiare
       doc.setFillColor(242, 245, 251);
