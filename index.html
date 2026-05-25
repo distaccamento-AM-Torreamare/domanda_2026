@@ -860,6 +860,8 @@ const CONFIG = {
     ph.style.display='none';
     bi.style.display=m==='invia' ?'flex':'none';
     bc.style.display=m==='stampa'?'flex':'none';
+    // Se si passa a modalità invia, nascondi il pannello approvazione comando
+    if(m==='invia') document.getElementById('pannelloApprovazione').style.display='none';
   }
 
   // ── Validazione form ─────────────────────────────────────────────────
