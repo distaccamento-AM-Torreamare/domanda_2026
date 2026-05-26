@@ -1169,6 +1169,9 @@ const CONFIG = {
       dueCampi('Cognome e Nome', nomeF, 'Codice Fiscale', cf);
       treCampi('Nato/a a', natoA, 'Provincia', prov, 'Nato/a il', natoIl);
       dueCampi('Periodo richiesto', periodo, 'Note', note);
+      const accNomePdf = isT ? 'titolare' : n;
+      const accValPdf  = document.querySelector(`input[name="acc_${accNomePdf}"]:checked`)?.value || 'no';
+      campo('Indennità di accompagnamento', accValPdf === 'si' ? 'SÌ' : 'NO');
       y += 2;
     });
 
@@ -1261,7 +1264,9 @@ const CONFIG = {
         periodo= document.getElementById(`fam_${n}_periodo`)?.value|| '';
         note   = document.getElementById(`fam_${n}_note`)?.value   || '';
       }
-      familiari_array.push({ parentela, nome: nomeF, cf: cfF, nato_a: natoA, prov, nato_il: natoIl, periodo, note });
+      const accNome = idx === 0 ? 'titolare' : card.id.replace('fam_','');
+      const accVal  = document.querySelector(`input[name="acc_${accNome}"]:checked`)?.value || 'no';
+      familiari_array.push({ parentela, nome: nomeF, cf: cfF, nato_a: natoA, prov, nato_il: natoIl, periodo, note, accompagnamento: accVal });
 
       const fotoId  = idx===0 ? 'fam_tit_foto' : `fam_${card.id.replace('fam_','')}_foto`;
       const fotoInp = document.getElementById(fotoId);
