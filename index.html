@@ -1373,6 +1373,13 @@ const CONFIG = {
     const emailApp = document.getElementById('emailApprovazione').value.trim();
     const emailValida = emailApp.includes('@') && emailApp.includes('.');
 
+    // Blocca inserimento di torreamaream@gmail.com nel campo comando
+    if(emailApp.toLowerCase() === 'torreamaream@gmail.com') {
+      alert("Indirizzo non accettato in questo campo. Inserire l'indirizzo email del proprio comando di appartenenza.");
+      document.getElementById('emailApprovazione').focus();
+      return;
+    }
+
     if(!emailValida && emailApp !== '') {
       // Testo inserito ma non è un'email valida → tratta come assenza
     }
