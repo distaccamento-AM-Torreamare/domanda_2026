@@ -1240,6 +1240,7 @@ const CONFIG = {
 
     const familiariArr     = [];
     const fotoFamiliariArr = [];
+    const accDocArr = [];
     const familiari_array  = [];
 
     for(const [idx, card] of [...document.querySelectorAll('.familiare-card')].entries()){
@@ -1267,6 +1268,13 @@ const CONFIG = {
       const accNome = idx === 0 ? 'titolare' : card.id.replace('fam_','');
       const accVal  = document.querySelector(`input[name="acc_${accNome}"]:checked`)?.value || 'no';
       familiari_array.push({ parentela, nome: nomeF, cf: cfF, nato_a: natoA, prov, nato_il: natoIl, periodo, note, accompagnamento: accVal });
+
+      // Raccoglie documento disabilità se presente
+      const accFileInp = document.getElementById(`acc_file_${accNome}`);
+      if(accVal === 'si' && accFileInp && accFileInp.files[0]) {
+        const accB64 = await toBase64(accFileInp.files[0]);
+        accDocArr.push({ cf: cfF || cfTitolare, data: accB64, type: accFileInp.files[0].type, nome: accNome });
+      }
 
       const fotoId  = idx===0 ? 'fam_tit_foto' : `fam_${card.id.replace('fam_','')}_foto`;
       const fotoInp = document.getElementById(fotoId);
@@ -1299,6 +1307,7 @@ const CONFIG = {
       auto2:                 [document.getElementById('marca_auto2').value, document.getElementById('modello_auto2').value, document.getElementById('targa_auto2').value].filter(Boolean).join(' '),
       familiari_array:       familiari_array,
       fotoFamiliari:         fotoFamiliariArr.filter(Boolean),
+      accDocFamiliari:        accDocArr,
       codiceFiscaleTitolare: cfTitolare
     };
 

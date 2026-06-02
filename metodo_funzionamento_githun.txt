@@ -1,0 +1,18 @@
+https://distaccamento-am-torreamare.github.io/domanda_2026/
+https://script.google.com/home  (dove cambiare se serve il codice .gs dopo essersi logati su torreamaream@gmail.com
+
+per cambiare le categorie a cui inviare la mail ad AM o che hanno la stampa lo si fa dentro index.html cercare la parola esercito per capire dove intervenire.
+
+Fatta la variazione aprire GitHub, effettuare il login. Al centro in repository cercare add file, update files e caricare tramite trascinamento il nuovo file poi premere su commit e il file è aggiornato. Caricato il file bisogna verificare l'indirizzo url generato dallo script di google. L'ultimo utilizzato: 
+Su GitHub per avere l'indirizzo da mettere sul sito AM andare in settings, page e li c'è l'indirizzo da mettere sul button del sito AM
+
+https://script.google.com/macros/s/AKfycbynPPZrc4RdE_OLtaECPdnpEPzpJ8zQspgX9EWp1WBkwVGMtxpYxtoW6pS1Nl3p07rh/exec
+
+Per rendere efficaci le variazioni come ad esempio l'indirizzo mail, bisogna cambiarlo anche nel file backend.gs. Fatte le modifiche aprire una pagina google.com (non mail) inserire le credenziali google e digitare nella barra degli indirizzi:  script.google.com Scegliere il progetto e sostituire il .gs esistente con il nuovo (NO html) poi bisogna cliccare su esegui deployment - nuovo e copiarsi l'url da andare ad inserire nell'index html, cliccare su matita e cercare il fetch usando cerca (control+F) e scrivere script.google su GitHub e salvare.
+
+
+ciao ho creato un programma per l'invio di domande, un programma in html che ho caricato github e uno script su app script di google. 
+
+ciao ho un programma .html su github e su google drive con google.script un file .gs per gestire le richieste di tesseramento ad uno stabilimento balneare aziendale. C'è una condizione nel programma da modificare, attualmente il 'titolare' dalla combobox: 'periodo di tesseramento richiesto' è obbligato a scegliere un turno, bisogna fare in modo che anche lui possa scegliere come periodo di tesseramento 'nessuno'. 
+Inoltre quando il codice salva in google drive gli allegati alla domanda se si tratta di foto le salva con foto_codice fiscale della persona. Dobbiamo fare in modo che le sole foto siano salvate riportando come nome del file solo il codice fiscale della persona abbinata e NON il suffisso 'foto_', e per finire la foto del solo titolare è salvata per due volte. Ti riporto i due file. Grazie
+
